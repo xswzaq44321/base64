@@ -89,8 +89,10 @@ int main(int argc, char *argv[]){
 	}
 	if(mode == decode){
 		for(int i = 0; i < buffer.length(); ++i){
-			if(buffer[i] == '\n')
+			if(buffer[i] == '\n' || buffer[i] == '\r'){
 				buffer.erase(i, 1);
+				--i;
+			}
 		}
 	}
 
