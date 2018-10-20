@@ -87,6 +87,12 @@ int main(int argc, char *argv[]){
 	}else{
 		getline(cin, buffer);
 	}
+	for(int i = buffer.length() - 2; i < buffer.length(); ++i){
+		if(buffer[i] == '\n' || buffer[i] == '\r'){
+			buffer.erase(i, 1);
+			--i;
+		}
+	}
 	if(mode == decode){
 		for(int i = 0; i < buffer.length(); ++i){
 			if(buffer[i] == '\n' || buffer[i] == '\r'){
@@ -108,7 +114,8 @@ int main(int argc, char *argv[]){
 		ofstream os(ofilename, std::ofstream::out);
 
 		cout << "\n\nWriting " << buffer2.length() << " characters into \"" << ofilename << "\"";
-		os.write(buffer2.c_str(), buffer2.length());
+		os << buffer2 << endl;
+		//os.write(buffer2.c_str(), buffer2.length());
 		os.close();
 	}
 }

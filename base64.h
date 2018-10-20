@@ -53,7 +53,8 @@ namespace base64{
 	std::string decode(std::string strin){
 		std::string strout;
 		for(int i = 0; i < strin.length(); i += 4){
-			unsigned int temp = 0, lack = 0;
+			unsigned int temp = 0;
+			int lack = 0;
 			for(int j = 0; j < 4; ++j){
 				temp <<= 6;
 				if(strin[i + j] == '='){
@@ -68,11 +69,8 @@ namespace base64{
 					}
 				}
 			}
-			for(int j = 2; j >= 0; --j){
+			for(int j = 2; j >= lack; --j){
 				strout += (char)((temp >> (j * 8)) % 256);
-			}
-			if(lack){
-				strout.erase(strout.length() - lack, lack);
 			}
 		}
 		return strout;
